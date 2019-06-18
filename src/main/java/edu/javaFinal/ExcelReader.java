@@ -15,114 +15,53 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelReader {
 
-		public ArrayList<String> getData(InputStream is) {
-			ArrayList<String> values = new ArrayList<String>();
-			
-			try (InputStream inp = is) {
-			    
-			        Workbook wb = WorkbookFactory.create(inp);
-			        Sheet sheet = wb.getSheetAt(0);
-			        
-			        int rows=sheet.getPhysicalNumberOfRows();
-			        Row row;
-			        Cell cell;
-			        for(int rowIndex=1;rowIndex<rows;rowIndex++)
-			        {
-			        	row=sheet.getRow(rowIndex);
-			        	String rvalue= " ";
-			        	if(row!=null)
-			        	{
-			        		int cells=row.getPhysicalNumberOfCells();
-			        		for(int columnIndex=0;columnIndex<cells;columnIndex++)
-			        		{
-			        			cell=row.getCell(columnIndex);
-			        			String value="";
-
-			        			switch(cell.getCellType())
-			        			{
-			        			   case NUMERIC:
-			        				   value=Double.toString((int) cell.getNumericCellValue());
-			        				   rvalue=rvalue+value+",";
-			        				   break;
-			        				   
-			        			   case STRING:
-			        				   value=cell.getStringCellValue();
-			        				   if(value.contains(","))
-			        				   {
-			        					   rvalue=rvalue+"\"" +value+ "\""+",";
-			        					   break;
-			        				   }
-			        				   if(value.contains("\n"))
-			        				   {
-			        					   rvalue=rvalue+"\""+value+"\""+",";
-			        					   break;
-			        				   }
-			        				   rvalue=rvalue+value+",";
-			        				   break;
-			        			   case BLANK:
-			        				 
-			        				   value="";
-			        				   rvalue=rvalue+value+",";
-			        				   break;
-								
-			        			   default:
-									break;
-			        			}
-			        		}
-			        		System.out.println(rvalue);
-			        		values.add(rvalue);
-			        	}
-			         }  
-			    } catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-			    	System.out.println("The file path does not exist. Please check your CLI argument!");
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			
-			return values;
-		}
-
+	
 
 	public ArrayList<String> getData1(InputStream is) {
 		ArrayList<String> values = new ArrayList<String>();
 		String file = new String();
+		int index = 1;
 		try (InputStream inp = is) {
-
-			System.out.println(file);
 			Workbook wb = WorkbookFactory.create(inp);
 			Sheet sheet = wb.getSheetAt(0);
-
-			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
-				Row row = sheet.getRow(i);
-
-				String arr[] = row.toString().trim().split(",");
-				boolean isnull = true;
-
-				for (int k = 0; k < arr.length; k++) {
-					if (arr[k] != null) {
-						isnull = false;
-						break;
+			Row row = sheet.getRow(index);
+			while (row != null) {
+				String[] data = new String[7];
+				for (int i = 0; i < data.length; i++) {
+					Cell cell = row.getCell(i);
+					if (cell == null) {
+						cell = row.createCell(i);
 					}
-				}
-				if (!isnull) {
-
-					file = "";
-					DataFormatter formatter = new DataFormatter();
-					for (int j = 0; j < row.getLastCellNum(); j++) {
-						Cell cell = row.getCell(j);
-						if (cell == null) {
-							cell = row.createCell(3);
-						}
-						file = (file + formatter.formatCellValue(cell)).trim() + ",";
-					}
-					System.out.println(file);
-					values.add(file);
+					data[i] = cell.toString().trim();
 				}
 
+				String temp = "";
+				String[] rrow = new String[8];
+				String[] origin = new String[7];
+				for (int i = 0; i < data.length; i++) {
+					if (data[i].indexOf('"') != -1) {
+						data[i] = data[i].replace(',', ' ');
+					}
+					rrow[i + 1] = "\"" + data[i] + "\"";
+					origin[i] = data[i] +"|";
+					temp += data[i];
+				}
+				if (temp.isEmpty()) {
+					row = sheet.getRow(++index);
+				} else {
+					String k = "";
+					
+					for(int i = 0; i<origin.length;i++) {
+						String t1 = origin[i];
+						k+=t1;
+					}
+					//System.out.println(k);
+					values.add(k);
+					row = sheet.getRow(++index);
+
+				}
 			}
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -133,28 +72,50 @@ public class ExcelReader {
 		return values;
 	}
 
+	
 	public ArrayList<String> getData2(InputStream is) {
 		ArrayList<String> values = new ArrayList<String>();
 		String file = new String();
+		int index = 2;
 		try (InputStream inp = is) {
-			System.out.println(file);
 			Workbook wb = WorkbookFactory.create(inp);
 			Sheet sheet = wb.getSheetAt(0);
-
-			for (int i = 2; i <= sheet.getLastRowNum(); i++) {
-				Row row = sheet.getRow(i);
-				file = "";
-				DataFormatter formatter = new DataFormatter();
-				for (int j = 0; j < row.getLastCellNum(); j++) {
-					Cell cell = row.getCell(j);
+			Row row = sheet.getRow(index);
+			while (row != null) {
+				String[] data = new String[7];
+				for (int i = 0; i < data.length; i++) {
+					Cell cell = row.getCell(i);
 					if (cell == null) {
-						cell = row.createCell(3);
+						cell = row.createCell(i);
 					}
-					file = (file + formatter.formatCellValue(cell)).trim() + ",";
+					data[i] = cell.toString().trim();
 				}
-				values.add(file);
 
+				String temp = "";
+				String[] rrow = new String[8];
+				String[] origin = new String[7];
+				for (int i = 0; i < data.length; i++) {
+					if (data[i].indexOf('"') != -1) {
+						data[i] = data[i].replace(',', ' ');
+					}
+					rrow[i + 1] = "\"" + data[i] + "\"";
+					origin[i] = data[i]+",";
+					temp += data[i];
+				}
+				if (temp.isEmpty()) {
+					row = sheet.getRow(++index);
+				} else {
+					String k = "";
+					for(String t1: origin) {
+						k+=t1;
+					}
+					//System.out.println(k);
+					values.add(k);
+					row = sheet.getRow(++index);
+
+				}
 			}
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
