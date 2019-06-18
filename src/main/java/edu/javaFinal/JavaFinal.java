@@ -91,12 +91,12 @@ public class JavaFinal{
 			for (String tempString : t) {
 				sd1 = new SummaryData(tempString, temp);
 				merged1.add(sd1.getFullInfo());
-				//System.out.println(sd1.getFullInfo());
+				System.out.println(sd1.getFullInfo());
 			}
 		}
 		
 		for(String k : merged1) {
-			//System.out.println(k);
+			System.out.println(k);
 		}
 		
 		merged2.add(category2);
@@ -112,7 +112,7 @@ public class JavaFinal{
 		}
 		
 		for(String k : merged2) {
-			//System.out.println(k);
+			System.out.println(k);
 		}
 		
 		//WriteFiles w1 = new WriteFiles(merged1, merged2, outputPath);
