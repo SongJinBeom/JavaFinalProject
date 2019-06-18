@@ -91,7 +91,7 @@ public class JavaFinal{
 			for (String tempString : t) {
 				sd1 = new SummaryData(tempString, temp);
 				merged1.add(sd1.getFullInfo());
-				System.out.println(sd1.getFullInfo());
+			//	System.out.println(sd1.getFullInfo());
 			}
 		}
 		
@@ -107,7 +107,7 @@ public class JavaFinal{
 			for (String tempString : t) {
 				cd1 = new ChartData(tempString, temp);
 				merged2.add(cd1.getFullInfo());
-				System.out.println(cd1.getFullInfo());
+				//System.out.println(cd1.getFullInfo());
 			}
 		}
 		
