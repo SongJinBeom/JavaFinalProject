@@ -10,8 +10,7 @@ import java.util.ArrayList;
 
 public class ExcelWriter {
 	
-	
-	public static void writeAFile(ArrayList<String> lines, String targetFileName, int count) {
+	public void writeAFile(ArrayList<String> lines, String targetFileName, int count) {
 		PrintWriter outputStream = null;
 		
 		try {
@@ -24,69 +23,14 @@ public class ExcelWriter {
 		
 		
 		for (String line : lines) {
-			System.out.println(line);
+			//System.out.println(line);
 			outputStream.println(line);
 			outputStream.flush();
 		}
 		outputStream.close();
 	}
 }
-//	File file = new File(output);
-//	try {
-//		if(!file.exists()) {
-//			file.getParentFile().mkdir();
-//			file.createNewFile();
-//		}
-//	} catch (IOException e1) {
-//		e1.printStackTrace();
-//	}
-		
-		
-		//		File file = new File(targetFileName+count+".csv");
-//		try {
-//			if(!file.exists()) {
-//				file.getParentFile().mkdir();
-//				file.createNewFile();
-//			}
-//		} catch (IOException e1) {
-//			e1.printStackTrace();
-//		}
-//		try {
-//			BufferedWriter stream = new BufferedWriter(new FileWriter(file, true));
-//			String line = "";
-//			
-//			for(String cell : lines) {
-//				System.out.println(cell);
-//				stream.write(cell);
-//				stream.flush();
-//			}
-//			stream.close();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-	
-//	
-//	try {
-//		BufferedWriter stream = new BufferedWriter(new FileWriter(output, true));
-//		String oneLine = "";
-//		
-//		if(type == 0 && isFirst1) {
-//			isFirst1 = !isFirst1;
-//		}else if(type == 1 && isFirst2) {
-//			isFirst2 = !isFirst2;
-//		}
-//		for(String row : data) {
-//			oneLine = oneLine + row + ",";
-//		}
-//		System.out.println("oneLine: "+oneLine);
-//		stream.write(oneLine + "\n");
-//		stream.flush();
-//		stream.close();
-//	} catch(IOException e) {
-//		e.printStackTrace();
-//	}
+
 	
 
 

@@ -10,7 +10,7 @@ public class SummaryData {
 	private String weblink;
 	private String sourceSite;
 	private String copyright;
-	String fullInfo;
+	private String fullInfo;
 	// String category2 = "제목(반드시 요약문 양식에 입력한 제목과 같아야함.), 표/그림 일련번호, 자료유형(표,그림...),
 	// " + "자료에 나온 표나 그림 설명(캡션), 자료가 나온 쪽번호";
 
@@ -33,6 +33,7 @@ public class SummaryData {
 		this.sourceSite = temp[5];
 		this.copyright = temp[6];
 		this.fullInfo = merge();
+		
 	}
 
 	public String merge() {

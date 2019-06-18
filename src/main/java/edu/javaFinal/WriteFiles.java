@@ -15,19 +15,27 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class WriteFiles implements Runnable{
 	
-	ArrayList<String> a1;
-	ArrayList<String> a2;
+	ArrayList<String> b1;
+	ArrayList<String> b2;
 	String outputPath;
 	int count = 1;
 	public WriteFiles(ArrayList<String> a1, ArrayList<String> a2, String outputPath) {
-		ArrayList<WriteFiles> writers = new ArrayList<WriteFiles>();
 		
-		this.a1 = a1;
-		this.a2 = a2;
+		this.b1 = new ArrayList<String>();
+		this.b2 = new ArrayList<String>();
+		b1= a1;
+		b2 =a2;
+		
 		this.outputPath = outputPath;
 		
-		writers.add(new WriteFiles(a1, a2, outputPath));
-		writers.add(new WriteFiles(a1, a2, outputPath));
+		this.execute();
+	}
+	
+	public void execute() {
+		ArrayList<WriteFiles> writers = new ArrayList<WriteFiles>();
+			
+		writers.add(new WriteFiles(b1, b2, outputPath));
+		writers.add(new WriteFiles(b1, b2, outputPath));
 		
 		ArrayList<Thread> threads = new ArrayList<Thread>();
 		
@@ -36,7 +44,8 @@ public class WriteFiles implements Runnable{
 			thread.start();
 			threads.add(thread);
 		}
-	
+
+		
 		for(Thread t1 : threads) {
 			try {
 				t1.join();
@@ -47,8 +56,6 @@ public class WriteFiles implements Runnable{
 			}
 		}
 	}
-	
-	
 		
 
 	@Override
@@ -57,9 +64,9 @@ public class WriteFiles implements Runnable{
 		
 		ExcelWriter pen = new ExcelWriter();
 		if(count ==1)
-			pen.writeAFile(a1, outputPath, count);
+			pen.writeAFile(b1, outputPath, count);
 		else
-			pen.writeAFile(a2, outputPath, count);
+			pen.writeAFile(b2, outputPath, count);
 	}
 	
 }

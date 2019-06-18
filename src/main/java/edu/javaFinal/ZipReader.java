@@ -36,7 +36,7 @@ public class ZipReader {
 				if (file.isFile()) {
 					// 파일이 있다면 파일 이름 출력
 
-					System.out.println("파일 이름 = " + file.getName());
+					//System.out.println("파일 이름 = " + file.getName());
 
 					zipFile = new ZipFile(file);
 					int count = 1;
@@ -52,12 +52,12 @@ public class ZipReader {
 
 							if (count % 2 == 1) {
 								key = key + file.getName().substring(0, 4) + "-" + count;
-								System.out.println(key);
+						//		System.out.println(key);
 								datas.put(key, myReader.getData1(stream));
 
 							} else {
 								key = key + file.getName().substring(0, 4) + "-" + count;
-								System.out.println(key);
+						//		System.out.println(key);
 								datas.put(key, myReader.getData2(stream));
 							}
 							count++;
@@ -73,7 +73,7 @@ public class ZipReader {
 
 					zipFiles.add(zipFile);
 				} else if (file.isDirectory()) {
-					System.out.println("디렉토리 이름 = " + file.getName());
+					//System.out.println("디렉토리 이름 = " + file.getName());
 					searchFiles(file.getCanonicalPath().toString());
 				}
 			}

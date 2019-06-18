@@ -37,17 +37,16 @@ public class JavaFinal {
 				+ "자료에 나온 표나 그림 설명(캡션), 자료가 나온 쪽번호";
 
 		if (parseOptions(options, args)) {
-
 			if (help) {
 				printHelp(options);
 				System.exit(0);
 				return;
 			}
-
+			
 			try {
 				// when there are not enough arguments from CLI, it throws the
 				// NotEnoughArgmentException which must be defined by you.
-				if (args.length < 4)
+				if (args.length != 4)
 					throw new NotEnoughArgumentException();
 
 			} catch (NotEnoughArgumentException e) {
@@ -55,9 +54,6 @@ public class JavaFinal {
 				System.exit(0);
 			}
 
-			String dataPath = inputPath;
-			System.out.println(dataPath);
-			String resultPath = outputPath;
 
 			ZipReader read = new ZipReader();
 			allExcels = read.searchFiles(inputPath);
@@ -77,7 +73,6 @@ public class JavaFinal {
 					toBeMerged = sortedExcels.get(temp);
 					excel2.put(k, toBeMerged);
 				}
-				// System.out.println(k);
 
 			}
 		}
@@ -94,14 +89,10 @@ public class JavaFinal {
 			for (String tempString : t) {
 				sd1 = new SummaryData(tempString, temp);
 				merged1.add(sd1.getFullInfo());
-				// System.out.println(sd1.getFullInfo());
 			}
 		}
 
-		for (String k : merged1) {
-//			System.out.println(k);
-		}
-
+	
 		merged2.add(category2);
 
 		ChartData cd1;
@@ -110,16 +101,13 @@ public class JavaFinal {
 			for (String tempString : t) {
 				cd1 = new ChartData(tempString, temp);
 				merged2.add(cd1.getFullInfo());
-				// System.out.println(cd1.getFullInfo());
 			}
 		}
 
-		for (String k : merged2) {
-			//System.out.println(k);
-		}
 
-		// WriteFiles w1 = new WriteFiles(merged1, merged2, outputPath);
-		ExcelWriter e1 = new ExcelWriter();
+		//WriteFiles w1 = new WriteFiles(merged1, merged2, outputPath);
+		//w1.execute();
+		 ExcelWriter e1 = new ExcelWriter();
 		e1.writeAFile(merged1, outputPath, 1);
 		e1.writeAFile(merged2, outputPath, 2);
 	}
