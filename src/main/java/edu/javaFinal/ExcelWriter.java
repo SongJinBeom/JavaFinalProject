@@ -12,30 +12,61 @@ public class ExcelWriter {
 	
 	
 	public static void writeAFile(ArrayList<String> lines, String targetFileName, int count) {
-		File file = new File(targetFileName+count+".csv");
+		PrintWriter outputStream = null;
+		
 		try {
-			if(!file.exists()) {
-				file.getParentFile().mkdir();
-				file.createNewFile();
-			}
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		try {
-			BufferedWriter stream = new BufferedWriter(new FileWriter(file, true));
-			String line = "";
-			
-			for(String cell : lines) {
-				stream.write(cell);
-				stream.flush();
-			}
-			stream.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			targetFileName = targetFileName + count + ".csv";
+			outputStream = new PrintWriter(targetFileName);
+		} catch (FileNotFoundException e) {
+			System.out.println("Error writing the file " + targetFileName);
+			System.exit(0);
 		}
 		
+		
+		for (String line : lines) {
+			System.out.println(line);
+			outputStream.println(line);
+			outputStream.flush();
+		}
+		outputStream.close();
 	}
+}
+//	File file = new File(output);
+//	try {
+//		if(!file.exists()) {
+//			file.getParentFile().mkdir();
+//			file.createNewFile();
+//		}
+//	} catch (IOException e1) {
+//		e1.printStackTrace();
+//	}
+		
+		
+		//		File file = new File(targetFileName+count+".csv");
+//		try {
+//			if(!file.exists()) {
+//				file.getParentFile().mkdir();
+//				file.createNewFile();
+//			}
+//		} catch (IOException e1) {
+//			e1.printStackTrace();
+//		}
+//		try {
+//			BufferedWriter stream = new BufferedWriter(new FileWriter(file, true));
+//			String line = "";
+//			
+//			for(String cell : lines) {
+//				System.out.println(cell);
+//				stream.write(cell);
+//				stream.flush();
+//			}
+//			stream.close();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+	
 //	
 //	try {
 //		BufferedWriter stream = new BufferedWriter(new FileWriter(output, true));
@@ -57,5 +88,5 @@ public class ExcelWriter {
 //		e.printStackTrace();
 //	}
 	
-}
+
 

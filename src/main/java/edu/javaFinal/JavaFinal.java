@@ -33,7 +33,7 @@ public class JavaFinal {
 
 		String category1 = "StdID,제목,요약문(300자 내외),핵심어(keyword,쉼표로 구분),조회날짜,"
 				+ "실제자료조회 출처(웹 자료링크),원출처 (기관명 등),제작자(Copyright 소유)";
-		String category2 = "StdId,제목(반드시 요약문 양식에 입력한 제목과 같아야함.), 표/그림 일련번호, 자료유형(표,그림...), "
+		String category2 = "StdId,제목(반드시 요약문 양식에 입력한 제목과 같아야함.), 표&그림 일련번호, 자료유형(표.그림...), "
 				+ "자료에 나온 표나 그림 설명(캡션), 자료가 나온 쪽번호";
 
 		if (parseOptions(options, args)) {
@@ -99,7 +99,7 @@ public class JavaFinal {
 		}
 
 		for (String k : merged1) {
-			//System.out.println(k);
+//			System.out.println(k);
 		}
 
 		merged2.add(category2);
