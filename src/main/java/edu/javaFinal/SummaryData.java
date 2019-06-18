@@ -23,7 +23,7 @@ public class SummaryData {
 			}
 		}
 		
-		temp = info.split("|");
+		temp = info.split(",");
 		this.fileNum = key;
 		this.title = temp[0];
 		this.summary = temp[1];

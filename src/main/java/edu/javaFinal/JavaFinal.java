@@ -14,15 +14,14 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
-public class JavaFinal{
+public class JavaFinal {
 
 	String inputPath;
 	String outputPath;
 	boolean help;
 
 	public void execute(String[] args) {
-		
-		
+
 		Options options = createOptions();
 		HashMap<String, ArrayList<String>> allExcels;
 		HashMap<String, ArrayList<String>> excel1 = new HashMap<String, ArrayList<String>>();
@@ -32,10 +31,13 @@ public class JavaFinal{
 		ArrayList<String> merged1 = new ArrayList<String>();
 		ArrayList<String> merged2 = new ArrayList<String>();
 
-		String category1 = "제목,요약문(300자 내외),핵심어(keyword,쉼표로 구분),조회날짜," + "실제자료조회 출처(웹 자료링크),원출처 (기관명 등),제작자(Copyright 소유)";
-		String category2 = "제목(반드시 요약문 양식에 입력한 제목과 같아야함.), 표/그림 일련번호, 자료유형(표,그림...), " + "자료에 나온 표나 그림 설명(캡션), 자료가 나온 쪽번호";
-		
+		String category1 = "제목,요약문(300자 내외),핵심어(keyword,쉼표로 구분),조회날짜,"
+				+ "실제자료조회 출처(웹 자료링크),원출처 (기관명 등),제작자(Copyright 소유)";
+		String category2 = "제목(반드시 요약문 양식에 입력한 제목과 같아야함.), 표/그림 일련번호, 자료유형(표,그림...), "
+				+ "자료에 나온 표나 그림 설명(캡션), 자료가 나온 쪽번호";
+
 		if (parseOptions(options, args)) {
+
 			if (help) {
 				printHelp(options);
 				System.exit(0);
@@ -52,8 +54,7 @@ public class JavaFinal{
 				System.out.println(e.getMessage());
 				System.exit(0);
 			}
-			
-			
+
 			String dataPath = inputPath;
 			System.out.println(dataPath);
 			String resultPath = outputPath;
@@ -85,7 +86,6 @@ public class JavaFinal{
 		Map<String, ArrayList<String>> sorted2 = new TreeMap<String, ArrayList<String>>(excel2);
 
 		ArrayList<String> t = new ArrayList<String>();
-		
 
 		merged1.add(category1);
 		SummaryData sd1;
@@ -94,31 +94,31 @@ public class JavaFinal{
 			for (String tempString : t) {
 				sd1 = new SummaryData(tempString, temp);
 				merged1.add(sd1.getFullInfo());
-			//	System.out.println(sd1.getFullInfo());
+				// System.out.println(sd1.getFullInfo());
 			}
 		}
-		
-		for(String k : merged1) {
-		//	System.out.println(k);
+
+		for (String k : merged1) {
+			System.out.println(k);
 		}
-		
+
 		merged2.add(category2);
-		
+
 		ChartData cd1;
 		for (String temp : sorted2.keySet()) {
 			t = sorted2.get(temp);
 			for (String tempString : t) {
 				cd1 = new ChartData(tempString, temp);
 				merged2.add(cd1.getFullInfo());
-				//System.out.println(cd1.getFullInfo());
+				// System.out.println(cd1.getFullInfo());
 			}
 		}
-		
-		for(String k : merged2) {
-		//	System.out.println(k);
+
+		for (String k : merged2) {
+			System.out.println(k);
 		}
-		
-		//WriteFiles w1 = new WriteFiles(merged1, merged2, outputPath);
+
+		// WriteFiles w1 = new WriteFiles(merged1, merged2, outputPath);
 		ExcelWriter e1 = new ExcelWriter();
 		e1.writeAFile(merged1, outputPath, 1);
 		e1.writeAFile(merged2, outputPath, 2);

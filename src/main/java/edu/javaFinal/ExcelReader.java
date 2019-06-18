@@ -43,7 +43,7 @@ public class ExcelReader {
 						data[i] = data[i].replace(',', ' ');
 					}
 					rrow[i + 1] = "\"" + data[i] + "\"";
-					origin[i] = data[i] +"|";
+					origin[i] = data[i] +",";
 					temp += data[i];
 				}
 				if (temp.isEmpty()) {
@@ -51,11 +51,10 @@ public class ExcelReader {
 				} else {
 					String k = "";
 					
-					for(int i = 0; i<origin.length;i++) {
-						String t1 = origin[i];
+					for(String t1: origin) {
 						k+=t1;
 					}
-					//System.out.println(k);
+					
 					values.add(k);
 					row = sheet.getRow(++index);
 
