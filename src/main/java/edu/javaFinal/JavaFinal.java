@@ -21,16 +21,7 @@ public class JavaFinal{
 	boolean help;
 
 	public void execute(String[] args) {
-		try {
-			// when there are not enough arguments from CLI, it throws the
-			// NotEnoughArgmentException which must be defined by you.
-			if (args.length < 4)
-				throw new NotEnoughArgumentException();
-
-		} catch (NotEnoughArgumentException e) {
-			System.out.println(e.getMessage());
-			System.exit(0);
-		}
+		
 		
 		Options options = createOptions();
 		HashMap<String, ArrayList<String>> allExcels;
@@ -51,6 +42,18 @@ public class JavaFinal{
 				return;
 			}
 
+			try {
+				// when there are not enough arguments from CLI, it throws the
+				// NotEnoughArgmentException which must be defined by you.
+				if (args.length < 4)
+					throw new NotEnoughArgumentException();
+
+			} catch (NotEnoughArgumentException e) {
+				System.out.println(e.getMessage());
+				System.exit(0);
+			}
+			
+			
 			String dataPath = inputPath;
 			System.out.println(dataPath);
 			String resultPath = outputPath;
